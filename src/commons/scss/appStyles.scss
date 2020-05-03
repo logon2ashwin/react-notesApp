@@ -1,3 +1,7 @@
+@font-face {
+    font-family: 'Jost';
+    src: url('../../../assets/Jost-VariableFont_ital\,wght.ttf') format('truetype');
+}
 
 body {
     --appBodyBg: #E8EAF6;
@@ -6,9 +10,13 @@ body {
     --appNavSearchBg: #8C9EFF;
     --appNavSearchFontColor: #304FFE;
     --appNavButtonHoverBg: #1A237E;
+    
+    --appNotesBG: #3D5AFE;
+    --appNotesText: #E8EAF6;
 
     margin: 0;
     background-color: var(--appBodyBg);
+    font-family: 'Jost';
 }
 
 body[data-theme='dark'] {
@@ -18,6 +26,9 @@ body[data-theme='dark'] {
     --appNavSearchBg: #E0E0E0;
     --appNavSearchFontColor: #212121;
     --appNavButtonHoverBg: #757575;
+
+    --appNotesBG: #263238;
+    --appNotesText: #FAFAFA;
 
     background-color: var(--appBodyBg);
 

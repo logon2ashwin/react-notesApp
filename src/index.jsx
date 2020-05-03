@@ -1,5 +1,6 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import NavBar from './components/Navbar/Navbar';
+import NotesList from './components/NotesList/NotesList';
 import './commons/scss/appStyles.scss';
 
 const HomeComponent = (props) => {
@@ -25,6 +26,7 @@ const HomeComponent = (props) => {
   return (
     <Fragment>
       <NavBar theme={theme} switchTheme={toggleTheme} />
+      <NotesList />
     </Fragment>
   );
 };
