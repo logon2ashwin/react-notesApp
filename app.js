@@ -3,6 +3,6 @@ import ReactDOM from 'react-dom';
 import HomeComponent from './src/index';
 
 ReactDOM.render(
-  <HomeComponent>test</HomeComponent>,
+  <HomeComponent></HomeComponent>,
   document.getElementById('app')
 );

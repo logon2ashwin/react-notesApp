@@ -1,0 +1,32 @@
+
+body {
+    --appBodyBg: #E8EAF6;
+    --appNavBgColor: #304FFE;
+    --appNavTextColor: #E8EAF6;
+    --appNavSearchBg: #8C9EFF;
+    --appNavSearchFontColor: #304FFE;
+    --appNavButtonHoverBg: #1A237E;
+
+    margin: 0;
+    background-color: var(--appBodyBg);
+}
+
+body[data-theme='dark'] {
+    --appBodyBg: #616161;
+    --appNavBgColor: #212121;
+    --appNavTextColor: #FAFAFA;
+    --appNavSearchBg: #E0E0E0;
+    --appNavSearchFontColor: #212121;
+    --appNavButtonHoverBg: #757575;
+
+    background-color: var(--appBodyBg);
+
+}
+
+body.transition,
+body.transition *,
+body.transition *:before,
+body.transition *:after {
+    transition: all 0.5s ease !important;
+    transition-delay: 0 !important;
+}

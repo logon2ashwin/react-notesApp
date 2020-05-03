@@ -15,9 +15,9 @@ module.exports = (env, options) => {
   const isDevMode = options.mode === 'development';
 
   return {
-    entry: './index.js',
+    entry: './app.js',
     output: {
-      filename: 'index.js',
+      filename: 'app.js',
       path: path.resolve(__dirname, 'dist'),
       libraryTarget: 'umd'
     },
