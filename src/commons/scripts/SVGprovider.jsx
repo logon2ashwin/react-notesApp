@@ -25,6 +25,13 @@ const SvgProvider = props => {
           </svg>
         );
         break;
+      case 'NewNote':
+        return (
+          <svg width="24px" height="24px" aria-hidden="true" fill="currentcolor" className={classProp}>
+            <path d="M8,21,2,22l1-6L16.414,2.586a2,2,0,0,1,2.828,0l2.172,2.172a2,2,0,0,1,0,2.828Z" ></path>
+          </svg>
+        );
+        break;
       default:
         return null;
     }

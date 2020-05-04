@@ -3,16 +3,26 @@
     src: url('../../../assets/Jost-VariableFont_ital\,wght.ttf') format('truetype');
 }
 
+@mixin transform($value) {
+    -webkit-transform: $value;
+    -moz-transform: $value;
+    -ms-transform: $value;
+    transform: $value;
+}
+
 body {
     --appBodyBg: #E8EAF6;
-    --appNavBgColor: #304FFE;
+    --appNavBgColor: #3D5AFE;
     --appNavTextColor: #E8EAF6;
     --appNavSearchBg: #8C9EFF;
-    --appNavSearchFontColor: #304FFE;
+    --appNavSearchFontColor: #E8EAF6;
     --appNavButtonHoverBg: #1A237E;
     
     --appNotesBG: #3D5AFE;
     --appNotesText: #E8EAF6;
+
+    --appCreateNoteBG: #283593;
+    --appCreateOverlay: rgba(236, 227, 227, 0.5);
 
     margin: 0;
     background-color: var(--appBodyBg);
@@ -29,6 +39,10 @@ body[data-theme='dark'] {
 
     --appNotesBG: #263238;
     --appNotesText: #FAFAFA;
+
+    --appCreateNoteBG: #424242;
+    --appCreateOverlay: rgba(0,0,0,0.5);
+
 
     background-color: var(--appBodyBg);
 

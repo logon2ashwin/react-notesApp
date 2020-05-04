@@ -13,6 +13,9 @@ const NavBar = props => {
           </div>
         </li>
         <li className='nav-button-container'>
+          <div onClick={props.toggleCreateNote}>
+            <SvgProvider icon='NewNote' classProp='search-icon' />
+          </div>
           <div onClick={props.switchTheme}>
             { props.theme==='light' ? <SvgProvider icon='lightTheme' /> : <SvgProvider icon='darkTheme' /> }
           </div>

@@ -5,11 +5,11 @@
     grid-template-columns: 30% 30% 30%;
     grid-template-rows: min-content;
     justify-content: space-around;
-    margin-top: 50px;
+    margin: 50px 0 50px 0;
     row-gap: 30px;
     .app-notes {
         background-color: var(--appNotesBG);
-        height: 200px;
+        height: auto;
         border-radius: 5px;
         padding: 0 30px 0;
         .notes-heading {
