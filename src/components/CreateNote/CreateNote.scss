@@ -1,10 +1,7 @@
 @import '../../commons/scss/appStyles.scss';
 
 .create-note {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    @include absoluteCenterPositionElement;
     cursor: default;
     width: 50%;
     height: 70%;
@@ -20,12 +17,28 @@
         .note-title-holder {
             @extend .note-holders;
             align-items: center;
-            .note-title-input {
-                @extend .input-field;
-                transition: all 0.3s ease;
-                height: 50%;
-                &::placeholder {
+            div.note-input-with-label {
+                position: relative;
+                height: 70%;
+                width: 90%;
+                .note-title-input {
+                    @extend .input-field;
+                    width: 100% !important;
+                    height: 100%;
+                    transition: all 0.3s ease;
+                    &:focus +.note-title-label, &:valid +.note-title-label{
+                        transform: scale(0.8);
+                    }
+                }
+                .note-title-label {
+                    position: absolute;
+                    top: 3px;
+                    left: 22px;
                     color: var(--appInputboxText);
+                    font-size: 1.2em;
+                    transform: scale(2.5);
+                    transform-origin: left top;
+                    transition: all 0.3s ease;
                 }
             }
         }
@@ -37,16 +50,17 @@
                 overflow: scroll;
                 &::placeholder {
                     color: var(--appInputboxText);
-                    font-size: 20px;
+                    font-size: 25px;
                 }
             }
         }
         .note-button-grid {
             @extend .note-holders;
             .note-button-holder {
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
+                display: grid;
+                grid-template-columns: auto auto;
+                column-gap: 35px;
+                align-items: end;
                 width: 90%;
                 button {
                     font-family: 'jost';
@@ -74,7 +88,7 @@
     justify-content: center;
 }
 .input-field {
-    font-size: 18px;
+    font-size: 1.5em;
     font-family: jost;
     width: 90%;
     background-color: var(--appNavBgColor);
@@ -83,4 +97,5 @@
     color: var(--appInputboxText);
     border-radius: 5px;
     text-indent:20px;
+    cursor: text;
 }
