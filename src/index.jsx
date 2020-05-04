@@ -3,6 +3,7 @@ import NavBar from './components/Navbar/Navbar';
 import NotesList from './components/NotesList/NotesList';
 import CreateNote from './components/CreateNote/CreateNote';
 import './commons/scss/appStyles.scss';
+import { CSSTransition } from 'react-transition-group';
 
 const HomeComponent = (props) => {
   const [theme, setTheme] = useState('dark');
@@ -33,7 +34,9 @@ const HomeComponent = (props) => {
     <Fragment>
       <NavBar theme={theme} switchTheme={toggleTheme} toggleCreateNote={toggleCreateNotePopup} />
       <NotesList />
-      <CreateNote showCreatePopUp={showCreateNote} toggleCreateNote={toggleCreateNotePopup} />
+      <CSSTransition in={showCreateNote} timeout={200} classNames="fade" unmountOnExit>
+        <CreateNote showCreatePopUp={showCreateNote} toggleCreateNote={toggleCreateNotePopup} />
+      </CSSTransition>
     </Fragment>
   );
 };

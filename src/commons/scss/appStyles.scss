@@ -24,6 +24,8 @@ body {
     --appCreateNoteBG: #283593;
     --appCreateOverlay: rgba(236, 227, 227, 0.5);
 
+    --appInputboxText: #E8EAF6;
+
     margin: 0;
     background-color: var(--appBodyBg);
     font-family: 'Jost';
@@ -43,10 +45,42 @@ body[data-theme='dark'] {
     --appCreateNoteBG: #424242;
     --appCreateOverlay: rgba(0,0,0,0.5);
 
+    --appInputboxText: #EEEEEE;
 
     background-color: var(--appBodyBg);
 
 }
+
+.fade-enter {
+    opacity: 0;
+}
+.fade-enter-active {
+    opacity: 1;
+    animation: zoomin 200ms normal;
+    transition: all 200ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit-active {
+    opacity: 0;
+    animation: zoomin 200ms reverse;
+    transition: opacity 200ms ease-in;
+}
+
+@keyframes zoomin {
+    0% {
+        width: 0%;
+        height: 0%;
+    }
+
+    100% {
+        width: 50%;
+        height: 70%;
+    }
+}
+
 
 body.transition,
 body.transition *,

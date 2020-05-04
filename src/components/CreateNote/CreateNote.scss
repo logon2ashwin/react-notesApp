@@ -1,47 +1,86 @@
 @import '../../commons/scss/appStyles.scss';
 
-.create-note-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: var(--appCreateOverlay);
-    z-index: 9;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    display: flex;
-    .create-note {
-        cursor: default;
-        width: 60%;
-        height: 80%;
-        background-color: var(--appCreateNoteBG);
-        border-radius: 10px;
-        &.opened {
-            animation: zoomin 0.2s;
+.create-note {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    cursor: default;
+    width: 50%;
+    height: 70%;
+    background-color: var(--appCreateNoteBG);
+    border-radius: 10px;
+    .note-form-container {
+        margin: 15px 0 15px 0;
+        height: 90%;
+        display: grid;
+        grid-template-rows: 20% 70% 10%;
+        row-gap: 10px;
+        font-family: 'Jost';
+        .note-title-holder {
+            @extend .note-holders;
+            align-items: center;
+            .note-title-input {
+                @extend .input-field;
+                transition: all 0.3s ease;
+                height: 50%;
+                &::placeholder {
+                    color: var(--appInputboxText);
+                }
+            }
         }
-        &.closed {
-            animation: zoomin 0.2s reverse;
+        .note-body-holder {
+            @extend .note-holders;
+            .note-text-area {
+                @extend .input-field;
+                resize: none;
+                overflow: scroll;
+                &::placeholder {
+                    color: var(--appInputboxText);
+                    font-size: 20px;
+                }
+            }
         }
-    }
-    &.visible {
-        // opacity: 1;
-    }
-    &.hidden {
-        // opacity: 0;
-        display: none;
+        .note-button-grid {
+            @extend .note-holders;
+            .note-button-holder {
+                display: flex;
+                justify-content: space-evenly;
+                align-items: center;
+                width: 90%;
+                button {
+                    font-family: 'jost';
+                    background-color: var(--appNavBgColor);
+                    color: var(--appInputboxText);
+                    height: 75%;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 0px 15px;
+                    cursor: pointer;
+                    outline: none;
+                    transition: box-shadow ease 0.5s;
+                    &:hover {
+                        box-shadow: 0px 0 10px 0 var(--appInputboxText);
+                    }
+                }
+            }
+        }
     }
 }
 
-@keyframes zoomin {
-    from {
-       transform: scale(0.7);
-       opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+.note-holders {
+    display: flex;
+    justify-content: center;
+}
+.input-field {
+    font-size: 18px;
+    font-family: jost;
+    width: 90%;
+    background-color: var(--appNavBgColor);
+    border: 0;
+    outline: none;
+    color: var(--appInputboxText);
+    border-radius: 5px;
+    text-indent:20px;
 }
