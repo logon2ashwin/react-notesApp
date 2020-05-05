@@ -7,12 +7,11 @@
     height: 70%;
     background-color: var(--appCreateNoteBG);
     border-radius: 10px;
+    padding: 15px 0 0 0;
     .note-form-container {
-        margin: 15px 0 15px 0;
-        height: 90%;
+        height: 100%;
         display: grid;
-        grid-template-rows: 20% 70% 10%;
-        row-gap: 10px;
+        grid-template-rows: 20% 65% 15%;
         font-family: 'Jost';
         .note-title-holder {
             @extend .note-holders;
@@ -21,22 +20,27 @@
                 position: relative;
                 height: 70%;
                 width: 90%;
+                font-size: xx-large;
                 .note-title-input {
                     @extend .input-field;
                     width: 100% !important;
                     height: 100%;
                     transition: all 0.3s ease;
+                    font-size: 1em !important;
                     &:focus +.note-title-label, &:valid +.note-title-label{
-                        transform: scale(0.8);
+                        // transform: scale(0.8);
+                        font-size: x-small;
+                        top: 3%;
                     }
                 }
                 .note-title-label {
                     position: absolute;
-                    top: 3px;
-                    left: 22px;
+                    top: 0px;
+                    left: 3%;
                     color: var(--appInputboxText);
-                    font-size: 1.2em;
-                    transform: scale(2.5);
+                    font-size: 6.5vh;
+                    // font-size: 1.2em;
+                    // transform: scale(2.5);
                     transform-origin: left top;
                     transition: all 0.3s ease;
                 }
@@ -60,13 +64,14 @@
                 display: grid;
                 grid-template-columns: auto auto;
                 column-gap: 35px;
-                align-items: end;
+                align-items: center;
+                justify-content: center;
                 width: 90%;
                 button {
                     font-family: 'jost';
                     background-color: var(--appNavBgColor);
                     color: var(--appInputboxText);
-                    height: 75%;
+                    height: 50%;
                     font-size: 16px;
                     border: none;
                     border-radius: 10px;
