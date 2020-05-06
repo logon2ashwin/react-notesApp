@@ -33,6 +33,9 @@ body {
 
     --appInputboxText: #E8EAF6;
 
+    --appComponentLoading: #536DFE;
+    --appComponentsLoadingBg: #3D5AFE;
+
     margin: 0;
     background-color: var(--appBodyBg);
     font-family: 'Jost';
@@ -54,8 +57,26 @@ body[data-theme='dark'] {
 
     --appInputboxText: #EEEEEE;
 
+    --appComponentLoading: #37474F;
+    --appComponentsLoadingBg: #263238;
+
     background-color: var(--appBodyBg);
 
+}
+
+@keyframes loadingPlaceholder{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+.background-loader {
+    animation: loadingPlaceholder 0.8s linear 0s infinite normal forwards;
+    background: linear-gradient(to right, var(--appComponentsLoadingBg) 8%, var(--appComponentLoading) 18%, var(--appComponentsLoadingBg) 33%);
+    background-size: 1000px 104px;
+    overflow: hidden;
 }
 
 .fade-enter {

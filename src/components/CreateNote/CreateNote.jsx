@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './CreateNote.scss';
+import React, { useState } from "react";
+import "./CreateNote.scss";
 
 const CreateNote = props => {
-  const [title,setTitle] = useState('');
+  const [title,setTitle] = useState("");
   return (
     <div className='create-note'>
       <form className='note-form-container'>

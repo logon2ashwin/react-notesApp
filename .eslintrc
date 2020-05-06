@@ -17,9 +17,9 @@
       }
     },
     "rules": {
-      "no-console": [
-        "warn"
-      ],
+      // "no-console": [
+      //   "warn"
+      // ],
       "indent": [
         "error",
         2,
@@ -46,13 +46,9 @@
       "linebreak-style": 0,
       "quotes": [
         "error",
-        "single"
+        "double"
       ],
       "semi": [
-        "error",
-        "always"
-      ],
-      "capitalized-comments": [
         "error",
         "always"
       ],

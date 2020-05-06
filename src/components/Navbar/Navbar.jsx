@@ -1,6 +1,6 @@
-import React from 'react';
-import SvgProvider from '../../commons/scripts/SVGprovider';
-import './navbar.scss';
+import React from "react";
+import SvgProvider from "../../commons/scripts/SVGprovider";
+import "./navbar.scss";
 
 const NavBar = props => {
   return(
@@ -17,7 +17,7 @@ const NavBar = props => {
             <SvgProvider icon='NewNote' classProp='search-icon' />
           </div>
           <div onClick={props.switchTheme}>
-            { props.theme==='light' ? <SvgProvider icon='lightTheme' /> : <SvgProvider icon='darkTheme' /> }
+            { props.theme==="light" ? <SvgProvider icon='lightTheme' /> : <SvgProvider icon='darkTheme' /> }
           </div>
         </li>
       </ul>

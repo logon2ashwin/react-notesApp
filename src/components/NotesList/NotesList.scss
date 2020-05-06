@@ -1,22 +1,26 @@
 .notes-container {
     display: grid;
     width: 100%;
-    height: 100vh;
+    // height: 100vh;
     grid-template-columns: 30% 30% 30%;
-    grid-template-rows: min-content;
+    grid-template-rows: min-content min-content min-content;
     justify-content: space-around;
     margin: 50px 0 50px 0;
     row-gap: 30px;
     .app-notes {
         background-color: var(--appNotesBG);
-        height: auto;
+        height: fit-content;
         border-radius: 5px;
         padding: 0 30px 0;
         .notes-heading {
             color: var(--appNotesText);
+            min-height: 25px;
+            border-radius: 5px;
         }
         .notes-text {
             color: var(--appNotesText);
+            min-height: 100px;
+            border-radius: 5px;
         }
     }
 }
