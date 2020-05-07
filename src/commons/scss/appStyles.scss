@@ -37,10 +37,11 @@ body {
     --appComponentLoading: #536DFE;
     --appComponentsLoadingBg: #3D5AFE;
 
+    --appNoNotesBG: #9FA8DA;
+
     margin: 0;
     background-color: var(--appBodyBg);
     font-family: 'Jost';
-
     &.overlay-on {
         overflow: hidden;
     }
@@ -65,6 +66,8 @@ body[data-theme='dark'] {
 
     --appComponentLoading: #37474F;
     --appComponentsLoadingBg: #263238;
+
+    --appNoNotesBG: #424242;
 
     background-color: var(--appBodyBg);
 

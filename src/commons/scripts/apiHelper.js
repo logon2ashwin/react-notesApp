@@ -9,7 +9,10 @@ const getApi = (url) => {
       return data;
     })
     .catch((error) => {
-      return error;
+      return {
+        isError : true,
+        errorMessage: error
+      };
     });
 };
 

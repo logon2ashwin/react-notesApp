@@ -1,10 +1,10 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 const settings = {
-  distPath: path.join(__dirname, 'dist'),
-  srcPath: path.join(__dirname, 'src')
+  distPath: path.join(__dirname, "dist"),
+  srcPath: path.join(__dirname, "src"),
 };
 
 function srcPathExtend(subpath) {
@@ -12,96 +12,94 @@ function srcPathExtend(subpath) {
 }
 
 module.exports = (env, options) => {
-  const isDevMode = options.mode === 'development';
+  const isDevMode = options.mode === "development";
 
   return {
-    entry: './app.js',
+    entry: "./app.js",
     output: {
-      filename: 'app.js',
-      path: path.resolve(__dirname, 'dist'),
-      libraryTarget: 'umd'
+      filename: "app.js",
+      path: path.resolve(__dirname, "dist"),
+      libraryTarget: "umd",
     },
-    devtool: isDevMode ? 'source-map' : false,
+    devtool: isDevMode ? "source-map" : false,
     resolve: {
-      extensions: ['.jsx', '.js'],
+      extensions: [".jsx", ".js"],
     },
     module: {
       rules: [
         {
           test: /\.js$|jsx/,
           exclude: /(node_modules)/,
-          loader: 'babel-loader',
+          loader: "babel-loader",
         },
         {
           test: /\.js$|jsx/,
           exclude: /node_modules/,
-          loader: 'eslint-loader',
+          loader: "eslint-loader",
           options: {
             fix: true,
             emitError: true,
-            emitWarning: true
-          }
+            emitWarning: true,
+          },
         },
         {
           test: /\.scss$/,
           use: [
-            'style-loader',
+            "style-loader",
             {
-              loader: 'css-loader',
+              loader: "css-loader",
               options: {
-                sourceMap: isDevMode
-              }
+                sourceMap: isDevMode,
+              },
             },
             {
-              loader: 'sass-loader',
+              loader: "sass-loader",
               options: {
-                sourceMap: isDevMode
-              }
-            }
-          ]
+                sourceMap: isDevMode,
+              },
+            },
+          ],
         },
         {
           test: /\.(ttf|eot|woff|woff2)$/,
           use: {
-            loader: 'file-loader',
+            loader: "file-loader",
             options: {
-              name: 'fonts/[name].[ext]',
-            }
+              name: "fonts/[name].[ext]",
+            },
           },
         },
         {
           test: /\.(jpe?g|png|gif|svg|ico|webp)$/i,
           use: [
             {
-              loader: 'file-loader',
+              loader: "file-loader",
               options: {
-                outputPath: 'assets/'
-              }
-            }
-          ]
-        }
-      ]
+                outputPath: "assets/",
+              },
+            },
+          ],
+        },
+      ],
     },
     optimization: {
       usedExports: true,
-      sideEffects: false
+      sideEffects: false,
     },
     devServer: {
-      contentBase: path.join(__dirname, 'dist'),
+      contentBase: path.join(__dirname, "dist"),
       compress: true,
       port: 1100,
-      open: true
+      open: true,
     },
     plugins: [
       new CleanWebpackPlugin({
-        cleanOnceBeforeBuildPatterns : [settings.distPath],
-        verbose: true
+        cleanOnceBeforeBuildPatterns: [settings.distPath],
+        verbose: true,
       }),
       new HtmlWebpackPlugin({
-        template: './index.html'
-      })
-    ]
+        template: "./index.html",
+      }),
+    ],
   };
 };
-
-

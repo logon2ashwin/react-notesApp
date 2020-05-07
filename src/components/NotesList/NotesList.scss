@@ -1,3 +1,5 @@
+@import '../../commons/scss/appStyles.scss';
+
 .notes-container {
     display: grid;
     width: 100%;
@@ -21,6 +23,32 @@
             color: var(--appNotesText);
             min-height: 100px;
             border-radius: 5px;
+        }
+    }
+    &.remove-grid {
+        display: block !important;
+        margin: 0;
+        width: 100%;
+        height: calc( 100vh - 70px );
+        position: relative;
+        top: 70px;
+    }
+    .no-notes {
+        @include absoluteCenterPositionElement;
+        font-size: 1vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: default;
+        width: 100%;
+        svg {
+            color: var(--appNoNotesBG); 
+            width: 50em;
+            height: 50em;
+        }
+        h2 {
+            color: var(--appNoNotesBG); 
+            font-size: 4em;
         }
     }
 }

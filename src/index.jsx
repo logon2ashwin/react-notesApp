@@ -8,25 +8,44 @@ import apiProvider from "./commons/scripts/apiHelper";
 import utils from "./commons/scripts/utils";
 import config from "../config";
 
+const initializeDummyNotes = (count, object) => {
+  let placeholder = Array(count);
+  placeholder.fill(object);
+  return placeholder;
+};
+
+const addTransition = () => {
+  document.body.classList.add("transition");
+  window.setTimeout(()=> {
+    document.body.classList.remove("transition");
+  }, 1000);
+};
+
 const HomeComponent = (props) => {
   const [theme, setTheme] = useState("dark");
   const [showCreateNote, setCreateNote] = useState(false);
   const [skip, setSkip] = useState(0);
   const [totalCount, setTotalCount] = useState(Infinity);
   const [requestData, setRequestData] = useState({requestProgress: false, islastRequest: false, remainingCount: 0, lastReqProcessed: false});
-  const [notes,setNotes] = useState(initializeDummyNotes(limit));
-
   const limit = 9;
+  const [notes,setNotes] = useState(initializeDummyNotes(limit, { isLoaded: false }));
+  const [notesEmpty,setNotesEmpty] = useState({
+    isError: false,
+    iconName: "NotesEmpty",
+    errorMessage: "No notes added, Click add icon in Navbar to add new notes."
+  });
+
+
   let getNotesEndpoint = `${config.development.host}${config.development.port}${config.api.getNotesList}`;
 
-  let debounceOnscroll = utils.debounce(function(){
+  let debounceOnscroll = utils.debounce(()=>{
     if(window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !requestData.requestProgress && !requestData.lastReqProcessed) {
       if(requestData.islastRequest && requestData.remainingCount > 0 ) {
-        setNotes(prevState => [...prevState, ...initializeDummyNotes(requestData.remainingCount)]);
+        setNotes(prevState => [...prevState, ...initializeDummyNotes(requestData.remainingCount, { isLoaded: false })]);
         getNotes(true);
         return;
       }
-      setNotes(prevState => [...prevState, ...initializeDummyNotes(limit)]);
+      setNotes(prevState => [...prevState, ...initializeDummyNotes(limit, { isLoaded: false })]);
       getNotes();
     }
   },50);
@@ -36,13 +55,7 @@ const HomeComponent = (props) => {
     getNotes();
   },[]);
 
-  function initializeDummyNotes(count,isLoaded) {
-    let placeholder = Array(count);
-    placeholder.fill({isLoaded: !!isLoaded});
-    return placeholder;
-  }
-
-  function mergeNewData(data, skip, isLastReq) {
+  const mergeNewData = (data, skip, isLastReq) => {
     let noteClone = [...notes];
     let iteratorCount = 0;
     let localLimit = !!isLastReq ? requestData.remainingCount : limit;
@@ -52,12 +65,18 @@ const HomeComponent = (props) => {
       iteratorCount < localLimit ?  iteratorCount++ : iteratorCount;
     }
     return noteClone;
-  }
+  };
 
-  function getNotes(isLastReq) {
+  const getNotes = (isLastReq) => {
     let urlWithParams = `${getNotesEndpoint}?skip=${skip}&limit=${!!isLastReq ? 0 : limit}`;
     setRequestData(Object.assign(requestData, {requestProgress: true}));
     apiProvider.GET(urlWithParams).then(data => {
+      if(data.isError) {
+        if(data.errorMessage.message) {
+          setNotesEmpty({ errorMessage: data.errorMessage.message, isError: true, iconName: "NoInternet" });
+        }
+        return;
+      }
       setTotalCount(data.totalCount);
       if(isLastReq) {
         setRequestData(Object.assign(requestData, {lastReqProcessed: true}));
@@ -72,32 +91,25 @@ const HomeComponent = (props) => {
       !isLastReq ? setSkip(prevState => prevState + limit) : null;
       setRequestData(Object.assign(requestData, {requestProgress: false}));
     });
-  }
+  };
 
-  function toggleTheme() {
+  const toggleTheme = () => {
     let newTheme = theme === "dark" ? "light" : "dark";
     addTransition();
     document.body.setAttribute("data-theme",newTheme);
     setTheme(newTheme);
-  }
+  };
 
-  function addTransition() {
-    document.body.classList.add("transition");
-    window.setTimeout(()=> {
-      document.body.classList.remove("transition");
-    }, 1000);
-  }
-
-  function toggleCreateNotePopup() {
+  const toggleCreateNotePopup = () => {
     !showCreateNote ? document.body.classList.add("overlay-on") : document.body.classList.remove("overlay-on");
     setCreateNote(prevState => !prevState);
-  }
+  };
 
   return (
     <Fragment>
       <NavBar theme={theme} switchTheme={toggleTheme} toggleCreateNote={toggleCreateNotePopup} />
       {showCreateNote && <div className="overlay"></div>}
-      {notes.length && <NotesList notes={notes} setNotes={setNotes} />}
+      {<NotesList notes={notes} setNotes={setNotes} isError={notesEmpty.isError} errorIcon={notesEmpty.iconName} errorMessage={notesEmpty.errorMessage} />}
       <CSSTransition in={showCreateNote} timeout={200} classNames="fade" unmountOnExit>
         <CreateNote showCreatePopUp={showCreateNote} toggleCreateNote={toggleCreateNotePopup} />
       </CSSTransition>
