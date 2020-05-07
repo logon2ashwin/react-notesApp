@@ -8,7 +8,7 @@ const NavBar = props => {
       <ul>
         <li className='search-box-container'>
           <div>
-            <input className='search-box' type="text" />
+            <input className='search-box' type="text" placeholder="Search Notes"/>
             <SvgProvider icon='searchIcon' classProp='search-icon' />
           </div>
         </li>
