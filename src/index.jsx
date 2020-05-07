@@ -16,7 +16,7 @@ const HomeComponent = (props) => {
   const [requestData, setRequestData] = useState({requestProgress: false, islastRequest: false, remainingCount: 0, lastReqProcessed: false});
   const [notes,setNotes] = useState(initializeDummyNotes(limit));
 
-  const limit = 6;
+  const limit = 9;
   let getNotesEndpoint = `${config.development.host}${config.development.port}${config.api.getNotesList}`;
 
   let debounceOnscroll = utils.debounce(function(){
@@ -89,12 +89,14 @@ const HomeComponent = (props) => {
   }
 
   function toggleCreateNotePopup() {
+    !showCreateNote ? document.body.classList.add("overlay-on") : document.body.classList.remove("overlay-on");
     setCreateNote(prevState => !prevState);
   }
 
   return (
     <Fragment>
       <NavBar theme={theme} switchTheme={toggleTheme} toggleCreateNote={toggleCreateNotePopup} />
+      {showCreateNote && <div className="overlay"></div>}
       {notes.length && <NotesList notes={notes} setNotes={setNotes} />}
       <CSSTransition in={showCreateNote} timeout={200} classNames="fade" unmountOnExit>
         <CreateNote showCreatePopUp={showCreateNote} toggleCreateNote={toggleCreateNotePopup} />

@@ -1,11 +1,14 @@
 @import '../../commons/scss/appStyles.scss';
 
 
-.todo-nav-bar{
+.todo-nav-bar {
+    position: fixed;
+    top: 0;
     height: 70px;
     width: 100%;
     background-color: var(--appNavBgColor);
-    color: var(--appNavTextColor);   
+    color: var(--appNavTextColor);  
+    box-shadow: -2px -2px 10px 0px var(--appBodyBg); 
     ul {
         list-style: none;
         margin: inherit;
