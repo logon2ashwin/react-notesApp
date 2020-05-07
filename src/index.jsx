@@ -25,18 +25,25 @@ const HomeComponent = (props) => {
   const [theme, setTheme] = useState("dark");
   const [showCreateNote, setCreateNote] = useState(false);
   const [skip, setSkip] = useState(0);
-  const [totalCount, setTotalCount] = useState(Infinity);
+  const [totalCount, setTotalCount] = useState(0);
   const [requestData, setRequestData] = useState({requestProgress: false, islastRequest: false, remainingCount: 0, lastReqProcessed: false});
   const limit = 9;
-  const [notes,setNotes] = useState(initializeDummyNotes(limit, { isLoaded: false }));
-  const [notesEmpty,setNotesEmpty] = useState({
-    isError: false,
+  const [notes,setNotes] = useState( initializeDummyNotes((totalCount > limit ? limit : totalCount), { isLoaded: false }));
+  const notesEmptyObj = {
+    isError: totalCount === 0,
     iconName: "NotesEmpty",
     errorMessage: "No notes added, Click add icon in Navbar to add new notes."
-  });
+  };
+  const [notesEmpty, setNotesEmpty] = useState(notesEmptyObj);
+  const emptyNote = {
+    title : "",
+    description: ""
+  };
+  const [newNote, setNote] = useState(emptyNote);
 
+  // Initializing Endpoint URL
+  const getNotesEndpoint = `${config.development.host}${config.development.port}${config.api.getNotesList}`;
 
-  let getNotesEndpoint = `${config.development.host}${config.development.port}${config.api.getNotesList}`;
 
   let debounceOnscroll = utils.debounce(()=>{
     if(window.innerHeight + document.documentElement.scrollTop === document.documentElement.offsetHeight && !requestData.requestProgress && !requestData.lastReqProcessed) {
@@ -52,7 +59,9 @@ const HomeComponent = (props) => {
   window.onscroll = debounceOnscroll;
 
   useEffect(() => {
-    getNotes();
+    if(totalCount > 0) {
+      getNotes();
+    }
   },[]);
 
   const mergeNewData = (data, skip, isLastReq) => {
@@ -105,13 +114,25 @@ const HomeComponent = (props) => {
     setCreateNote(prevState => !prevState);
   };
 
+  const createNote = () => {
+    let newNoteClone = {...newNote, ...{isLoaded: true}};
+    setNotes([...notes, newNoteClone]);
+    setTotalCount(notes.length);
+    setNotesEmpty({notesEmpty,...{isError:false}});
+    setNote({newNote,...emptyNote});
+    toggleCreateNotePopup();
+  };
+
+  const updateNewNote = (note) => {
+    setNote({...newNote, ...note});
+  };
   return (
     <Fragment>
       <NavBar theme={theme} switchTheme={toggleTheme} toggleCreateNote={toggleCreateNotePopup} />
       {showCreateNote && <div className="overlay"></div>}
       {<NotesList notes={notes} setNotes={setNotes} isError={notesEmpty.isError} errorIcon={notesEmpty.iconName} errorMessage={notesEmpty.errorMessage} />}
       <CSSTransition in={showCreateNote} timeout={200} classNames="fade" unmountOnExit>
-        <CreateNote showCreatePopUp={showCreateNote} toggleCreateNote={toggleCreateNotePopup} />
+        <CreateNote showCreatePopUp={showCreateNote} toggleCreateNote={toggleCreateNotePopup} addNote={createNote} title={newNote.title} desc={newNote.description} updateNote={updateNewNote}/>
       </CSSTransition>
     </Fragment>
   );

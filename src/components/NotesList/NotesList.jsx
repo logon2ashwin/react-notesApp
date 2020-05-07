@@ -13,7 +13,7 @@ const NotesList = props => {
               <h2>{props.errorMessage}</h2>
             </div>
           ) : (
-            props.notes.map((note, index) => {
+            props.notes.length && props.notes.map((note, index) => {
               return (
                 <div key={index} className="app-notes">
                   <h4 className={`notes-heading ${!note.isLoaded ? "background-loader" : ""}`}>{note.isLoaded ? note.title : ""}</h4>
