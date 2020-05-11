@@ -119,6 +119,22 @@ body[data-theme='dark'] {
     transition: opacity 200ms ease-in;
 }
 
+.dissolve-enter {
+    opacity: 0;
+}
+.dissolve-enter-active {
+    opacity: 1;
+    transition: all 200ms ease-in;
+}
+
+.dissolve-exit {
+    opacity: 1;
+}
+.dissolve-exit-active {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
 @keyframes zoomin {
     0% {
         width: 0%;

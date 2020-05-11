@@ -1,12 +1,12 @@
 import React, { Fragment, useState, useEffect } from "react";
-import NavBar from "./components/Navbar/Navbar";
-import NotesList from "./components/NotesList/NotesList";
-import CreateNote from "./components/CreateNote/CreateNote";
-import "./commons/scss/appStyles.scss";
+import NavBar from "../Navbar/Navbar";
+import NotesList from "../NotesList/NotesList";
+import CreateNote from "../CreateNote/CreateNote";
+import "../../commons/scss/appStyles.scss";
 import { CSSTransition } from "react-transition-group";
-import apiProvider from "./commons/scripts/apiHelper";
-import utils from "./commons/scripts/utils";
-import config from "../config";
+import apiProvider from "../../commons/scripts/apiHelper";
+import utils from "../../commons/scripts/utils";
+import config from "../../../config";
 
 const initializeDummyNotes = (count, object) => {
   let placeholder = Array(count);
@@ -25,9 +25,9 @@ const HomeComponent = (props) => {
   const [theme, setTheme] = useState("dark");
   const [showCreateNote, setCreateNote] = useState(false);
   const [skip, setSkip] = useState(0);
-  const [totalCount, setTotalCount] = useState(0);
   const [requestData, setRequestData] = useState({requestProgress: false, islastRequest: false, remainingCount: 0, lastReqProcessed: false});
   const limit = 9;
+  const [totalCount, setTotalCount] = useState(100);
   const [notes,setNotes] = useState( initializeDummyNotes((totalCount > limit ? limit : totalCount), { isLoaded: false }));
   const notesEmptyObj = {
     isError: totalCount === 0,
@@ -52,7 +52,7 @@ const HomeComponent = (props) => {
         getNotes(true);
         return;
       }
-      setNotes(prevState => [...prevState, ...initializeDummyNotes(limit, { isLoaded: false })]);
+      setNotes(prevState => [ ...prevState, ...initializeDummyNotes(limit, { isLoaded: false }) ]);
       getNotes();
     }
   },50);
@@ -116,10 +116,10 @@ const HomeComponent = (props) => {
 
   const createNote = () => {
     let newNoteClone = {...newNote, ...{isLoaded: true}};
-    setNotes([...notes, newNoteClone]);
+    setNotes([...[newNoteClone],...notes]);
     setTotalCount(notes.length);
     setNotesEmpty({notesEmpty,...{isError:false}});
-    setNote({newNote,...emptyNote});
+    setNote({...newNote,...emptyNote});
     toggleCreateNotePopup();
   };
 
