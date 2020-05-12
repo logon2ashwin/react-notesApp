@@ -21,7 +21,7 @@ const Login = (props) => {
             !isCreateAccount &&
               <div className='login-input-holder'>
                 <input id='LoginuserName' className='login-input' type='text' required/>
-                <label className='login-label' onClick={() => document.getElementById("userName").focus()}>Username or Email</label>
+                <label className='login-label' onClick={() => document.getElementById("LoginuserName").focus()}>Username or Email</label>
               </div>
           }
 
