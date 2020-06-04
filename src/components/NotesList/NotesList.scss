@@ -1,0 +1,54 @@
+@import '../../commons/scss/appStyles.scss';
+
+.notes-container {
+    display: grid;
+    width: 100%;
+    // height: 100vh;
+    grid-template-columns: 30% 30% 30%;
+    grid-template-rows: min-content min-content min-content;
+    justify-content: space-around;
+    margin: 120px 0 50px 0;
+    row-gap: 30px;
+    .app-notes {
+        background-color: var(--appNotesBG);
+        height: fit-content;
+        border-radius: 5px;
+        padding: 0 30px 0;
+        .notes-heading {
+            color: var(--appNotesText);
+            min-height: 25px;
+            border-radius: 5px;
+        }
+        .notes-text {
+            color: var(--appNotesText);
+            min-height: 100px;
+            border-radius: 5px;
+        }
+    }
+    &.remove-grid {
+        display: block !important;
+        margin: 0;
+        width: 100%;
+        height: calc( 100vh - 70px );
+        position: relative;
+        top: 70px;
+    }
+    .no-notes {
+        @include absoluteCenterPositionElement;
+        font-size: 1vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: default;
+        width: 100%;
+        svg {
+            color: var(--appNoNotesBG); 
+            width: 50em;
+            height: 50em;
+        }
+        h2 {
+            color: var(--appNoNotesBG); 
+            font-size: 4em;
+        }
+    }
+}

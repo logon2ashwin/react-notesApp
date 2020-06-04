@@ -1,0 +1,107 @@
+@import '../../commons/scss/appStyles.scss';
+
+.create-note {
+    @include absoluteCenterPositionElement;
+    position: fixed !important;
+    cursor: default;
+    width: 50%;
+    height: 70%;
+    background-color: var(--appCreateNoteBG);
+    border-radius: 10px;
+    padding: 15px 0 0 0;
+    .note-form-container {
+        height: 100%;
+        display: grid;
+        grid-template-rows: 20% 65% 15%;
+        font-family: 'Jost';
+        .note-title-holder {
+            @extend .note-holders;
+            align-items: center;
+            div.note-input-with-label {
+                position: relative;
+                height: 70%;
+                width: 90%;
+                font-size: xx-large;
+                .note-title-input {
+                    @extend .input-field;
+                    width: 100% !important;
+                    height: 100%;
+                    transition: all 0.3s ease;
+                    font-size: 1em !important;
+                    &:focus +.note-title-label, &:valid +.note-title-label{
+                        // transform: scale(0.8);
+                        font-size: x-small;
+                        top: 3%;
+                    }
+                }
+                .note-title-label {
+                    position: absolute;
+                    top: 0px;
+                    left: 3%;
+                    color: var(--appInputboxText);
+                    font-size: 6.5vh;
+                    // font-size: 1.2em;
+                    // transform: scale(2.5);
+                    transform-origin: left top;
+                    transition: all 0.3s ease;
+                }
+            }
+        }
+        .note-body-holder {
+            @extend .note-holders;
+            .note-text-area {
+                @extend .input-field;
+                resize: none;
+                overflow: scroll;
+                &::placeholder {
+                    color: var(--appInputboxText);
+                    font-size: 25px;
+                }
+            }
+        }
+        .note-button-grid {
+            @extend .note-holders;
+            .note-button-holder {
+                display: grid;
+                grid-template-columns: auto auto;
+                column-gap: 35px;
+                align-items: center;
+                justify-content: center;
+                width: 90%;
+                button {
+                    font-family: 'jost';
+                    background-color: var(--appNavBgColor);
+                    color: var(--appInputboxText);
+                    height: 50%;
+                    font-size: 16px;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 0px 15px;
+                    cursor: pointer;
+                    outline: none;
+                    transition: box-shadow ease 0.5s;
+                    &:hover {
+                        box-shadow: 0px 0 10px 0 var(--appInputboxText);
+                    }
+                }
+            }
+        }
+    }
+}
+
+.note-holders {
+    display: flex;
+    justify-content: center;
+}
+.input-field {
+    font-size: 1.5em;
+    font-family: jost;
+    width: 90%;
+    background-color: var(--appNavBgColor);
+    border: 0;
+    outline: none;
+    color: var(--appInputboxText);
+    border-radius: 5px;
+    text-indent:20px;
+    cursor: text;
+}

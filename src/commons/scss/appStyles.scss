@@ -1,0 +1,157 @@
+@font-face {
+    font-family: 'Jost';
+    src: url('../../../assets/Jost-VariableFont_ital\,wght.ttf') format('truetype');
+}
+
+@mixin transform($value) {
+    -webkit-transform: $value;
+    -moz-transform: $value;
+    -ms-transform: $value;
+    transform: $value;
+}
+
+@mixin absoluteCenterPositionElement {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+body {
+    --appBodyBg: #E8EAF6;
+    --appNavBgColor: #3D5AFE;
+    --appNavTextColor: #E8EAF6;
+    --appNavSearchBg: #8C9EFF;
+    --appNavSearchFontColor: #E8EAF6;
+    --appNavSearchPlaceholderColor: #E8EAF6;
+    --appNavButtonHoverBg: #1A237E;
+    
+    --appNotesBG: #3D5AFE;
+    --appNotesText: #E8EAF6;
+
+    --appCreateNoteBG: #283593;
+    --appCreateOverlay: rgba(236, 227, 227, 0.5);
+
+    --appInputboxText: #E8EAF6;
+
+    --appComponentLoading: #536DFE;
+    --appComponentsLoadingBg: #3D5AFE;
+
+    --appNoNotesBG: #9FA8DA;
+
+    margin: 0;
+    background-color: var(--appBodyBg);
+    font-family: 'Jost';
+    &.overlay-on {
+        overflow: hidden;
+    }
+}
+
+body[data-theme='dark'] {
+    --appBodyBg: #616161;
+    --appNavBgColor: #212121;
+    --appNavTextColor: #FAFAFA;
+    --appNavSearchBg: #E0E0E0;
+    --appNavSearchFontColor: #212121;
+    --appNavSearchPlaceholderColor: #616161;
+    --appNavButtonHoverBg: #757575;
+
+    --appNotesBG: #263238;
+    --appNotesText: #FAFAFA;
+
+    --appCreateNoteBG: #424242;
+    --appCreateOverlay: rgba(0,0,0,0.5);
+
+    --appInputboxText: #EEEEEE;
+
+    --appComponentLoading: #37474F;
+    --appComponentsLoadingBg: #263238;
+
+    --appNoNotesBG: #424242;
+
+    background-color: var(--appBodyBg);
+
+}
+
+.overlay {
+    position: fixed; 
+    display: block; 
+    width: 100%; 
+    height: 100%; 
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    cursor: not-allowed;
+}
+
+@keyframes loadingPlaceholder{
+    0%{
+        background-position: -468px 0
+    }
+    100%{
+        background-position: 468px 0
+    }
+}
+.background-loader {
+    animation: loadingPlaceholder 0.8s linear 0s infinite normal forwards;
+    background: linear-gradient(to right, var(--appComponentsLoadingBg) 8%, var(--appComponentLoading) 18%, var(--appComponentsLoadingBg) 33%);
+    background-size: 1000px 104px;
+    overflow: hidden;
+}
+
+.fade-enter {
+    opacity: 0;
+}
+.fade-enter-active {
+    opacity: 1;
+    animation: zoomin 200ms normal;
+    transition: all 200ms ease-in;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+.fade-exit-active {
+    opacity: 0;
+    animation: zoomin 200ms reverse;
+    transition: opacity 200ms ease-in;
+}
+
+.dissolve-enter {
+    opacity: 0;
+}
+.dissolve-enter-active {
+    opacity: 1;
+    transition: all 200ms ease-in;
+}
+
+.dissolve-exit {
+    opacity: 1;
+}
+.dissolve-exit-active {
+    opacity: 0;
+    transition: opacity 200ms ease-in;
+}
+
+@keyframes zoomin {
+    0% {
+        width: 0%;
+        height: 0%;
+    }
+
+    100% {
+        width: 50%;
+        height: 70%;
+    }
+}
+
+
+body.transition,
+body.transition *,
+body.transition *:before,
+body.transition *:after {
+    transition: all 0.5s ease !important;
+    transition-delay: 0 !important;
+}
