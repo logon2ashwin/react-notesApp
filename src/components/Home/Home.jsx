@@ -2,11 +2,11 @@ import React, { Fragment, useState, useEffect } from "react";
 import NavBar from "../Navbar/Navbar";
 import NotesList from "../NotesList/NotesList";
 import CreateNote from "../CreateNote/CreateNote";
-import "../../commons/scss/appStyles.scss";
+import "commons/scss/appStyles.scss";
 import { CSSTransition } from "react-transition-group";
-import apiProvider from "../../commons/scripts/apiHelper";
-import utils from "../../commons/scripts/utils";
-import config from "../../../config";
+import apiProvider from "commons/scripts/apiHelper";
+import utils from "commons/scripts/utils";
+import config from "config/config";
 
 const initializeDummyNotes = (count, object) => {
   let placeholder = Array(count);

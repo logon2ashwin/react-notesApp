@@ -6,6 +6,7 @@ export default {
   },
   production: {},
   api: {
-    getNotesList: "/todo"
+    getNotesList: "/todo",
+    userLogin: "/auth/login"
   }
 };

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SvgProvider from "../../commons/scripts/SVGprovider";
+import SvgProvider from "commons/scripts/SVGprovider";
 import "./NotesList.scss";
 
 const NotesList = props => {

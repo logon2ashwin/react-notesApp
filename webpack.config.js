@@ -24,6 +24,10 @@ module.exports = (env, options) => {
     devtool: isDevMode ? "source-map" : false,
     resolve: {
       extensions: [".jsx", ".js"],
+      alias: {
+        commons: path.resolve(__dirname, "src/commons/"),
+        config: path.resolve(__dirname),
+      }
     },
     module: {
       rules: [
