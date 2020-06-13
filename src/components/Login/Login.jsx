@@ -1,4 +1,5 @@
 import React, { Fragment, useState }  from "react";
+import { Redirect } from "react-router";
 import apiProvider from "commons/scripts/apiHelper";
 import config from "config/config";
 import "./Login.scss";
@@ -22,8 +23,11 @@ const Login = (props) => {
     apiProvider
       .POST(apiURL, { email: loginName, password: loginPassword })
       .then((data) => {
-        console.log(data);
         if (data.isError) {
+          console.log(data);
+        }
+        else {
+          props.history.push("/home", {user: data.userId, notesCount: data.notesCount});
         }
       });
   };

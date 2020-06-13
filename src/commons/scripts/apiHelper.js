@@ -4,9 +4,17 @@ const getApi = (url) => {
       "Content-Type": "application/json",
     }
   })
-    .then((response) => response.json())
+    .then(response => { if(response.ok) return response.json(); })
     .then((data) => {
-      return data;
+      if(data) {
+        return data;
+      }
+      else {
+        return {
+          isError : true,
+          errorMessage: error
+        };
+      }
     })
     .catch((error) => {
       return {
@@ -23,14 +31,24 @@ const postAPI = (url, options) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(options)
-  }).then(function(response) {
-    return response.json();
-  }).then(function(error) {
-    return {
-      isError : true,
-      errorMessage: error
-    };
-  });
+  }).then(response => { if(response.ok) return response.json(); })
+    .then((data) => {
+      if(data) {
+        return data;
+      }
+      else {
+        return {
+          isError : true,
+          errorMessage: error
+        };
+      }
+    })
+    .catch(function(error) {
+      return {
+        isError : true,
+        errorMessage: error
+      };
+    });
 };
 
 const putAPI = (url, options) => {
@@ -40,14 +58,25 @@ const putAPI = (url, options) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(options)
-  }).then(function(response) {
-    return response.json();
-  }).then(function(error) {
-    return {
-      isError : true,
-      errorMessage: error
-    };
-  });
+  })
+    .then(response => { if(response.ok) return response.json(); })
+    .then((data) => {
+      if(data) {
+        return data;
+      }
+      else {
+        return {
+          isError : true,
+          errorMessage: error
+        };
+      }
+    })
+    .catch(function(error) {
+      return {
+        isError : true,
+        errorMessage: error
+      };
+    });
 };
 
 const api = {

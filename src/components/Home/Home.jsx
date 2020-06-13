@@ -27,7 +27,8 @@ const HomeComponent = (props) => {
   const [skip, setSkip] = useState(0);
   const [requestData, setRequestData] = useState({requestProgress: false, islastRequest: false, remainingCount: 0, lastReqProcessed: false});
   const limit = 9;
-  const [totalCount, setTotalCount] = useState(100);
+  const [totalCount, setTotalCount] = useState(props.location.state.notesCount);
+  const userId = props.location.state.user;
   const [notes,setNotes] = useState( initializeDummyNotes((totalCount > limit ? limit : totalCount), { isLoaded: false }));
   const notesEmptyObj = {
     isError: totalCount === 0,
@@ -43,6 +44,7 @@ const HomeComponent = (props) => {
 
   // Initializing Endpoint URL
   const getNotesEndpoint = `${config.development.host}${config.development.port}${config.api.getNotesList}`;
+  const postNote = `${config.development.host}${config.development.port}${config.api.postNote}`;
 
 
   let debounceOnscroll = utils.debounce(()=>{
@@ -62,6 +64,9 @@ const HomeComponent = (props) => {
     if(totalCount > 0) {
       getNotes();
     }
+    return () => {
+      console.log("Home commponent unmount");
+    };
   },[]);
 
   const mergeNewData = (data, skip, isLastReq) => {
@@ -95,7 +100,7 @@ const HomeComponent = (props) => {
         isLastReq = true;
         setRequestData(Object.assign(requestData, {islastRequest: true, remainingCount: remaining}));
       }
-      let noteClone = mergeNewData(data.notes, skip, isLastReq);
+      let noteClone = mergeNewData(data.data, skip, isLastReq);
       setNotes(noteClone);
       !isLastReq ? setSkip(prevState => prevState + limit) : null;
       setRequestData(Object.assign(requestData, {requestProgress: false}));
@@ -115,17 +120,34 @@ const HomeComponent = (props) => {
   };
 
   const createNote = () => {
-    let newNoteClone = {...newNote, ...{isLoaded: true}};
-    setNotes([...[newNoteClone],...notes]);
-    setTotalCount(notes.length);
-    setNotesEmpty({notesEmpty,...{isError:false}});
-    setNote({...newNote,...emptyNote});
-    toggleCreateNotePopup();
+    postNewNote(newNote, ()=> {
+      let newNoteClone = {...newNote, ...{isLoaded: true}};
+      setNotes([...[newNoteClone],...notes]);
+      setTotalCount(notes.length);
+      setNotesEmpty({notesEmpty,...{isError:false}});
+      setNote({...newNote,...emptyNote});
+      toggleCreateNotePopup();
+    });
   };
 
   const updateNewNote = (note) => {
     setNote({...newNote, ...note});
   };
+
+  const postNewNote = (newNote, successCallback) => {
+    let note = { ...newNote, ...{user: userId}};
+    apiProvider
+      .POST(postNote, note)
+      .then((response) => {
+        if(response.isError) {
+          console.log("post error");
+        }
+        else {
+          successCallback();
+        }
+      });
+  };
+
   return (
     <Fragment>
       <NavBar theme={theme} switchTheme={toggleTheme} toggleCreateNote={toggleCreateNotePopup} />
